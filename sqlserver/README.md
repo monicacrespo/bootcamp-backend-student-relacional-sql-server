@@ -15,7 +15,9 @@ The tech stack is SQL Server Management / Azure Data Studio, Microsoft Transact-
     -d mcr.microsoft.com/mssql/server:2017-latest-ubuntu
     ```
     This command creates a SQL Server 2017 container with the Developer edition (default). SQL Server port 1433 is exposed on the host as port 1433.
-    ![LemonMusicDiagram](LemonMusicDiagram.JPG)
+    
+    To view your Docker containers, use the docker ps command.
+    ![DockerContainer](DockerContainer.JPG)
 
 2. Copy a backup file into the container
    Download the `LemonMusic.bak` backup to your machine. Once downloaded, use docker cp to copy the we need to copy the backup file into the container in the /tmp directory.
@@ -26,6 +28,9 @@ The tech stack is SQL Server Management / Azure Data Studio, Microsoft Transact-
 
 
 # SQL Server exercise
+This is the `Entity relationship Diagram - ERD` in SQL Server Management Studio.
+![LemonMusicDiagram](LemonMusicDiagram.JPG)
+
 ### Essential queries
 Create a `consultas.script.sql` file and resolve the following queries:
 1. Select the tracks with price greater than or equal to $1
