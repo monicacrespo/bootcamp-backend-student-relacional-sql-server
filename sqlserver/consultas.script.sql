@@ -1,4 +1,4 @@
--- 1. Select the tracks with price greater than or equal to 1€
+-- 1. Select the tracks with price greater than or equal to 1 euro
 SELECT [Name], Milliseconds, Bytes, UnitPrice, Composer 
 FROM dbo.Track
 WHERE UnitPrice >= 1
@@ -23,8 +23,8 @@ WHERE Composer LIKE '%Mercury%'
 --Result: 16 rows
 
 -- 5. Calculate the average track length of the plataform
-SELECT AVG(Milliseconds) AS "Average Track Length"
-FROM dbo.Track
+SELECT	AVG(T.Milliseconds) /1000 /60 AS "Average Track Length in minutes"
+FROM	dbo.Track T
 --Result: 393599
 
 -- 6. Select the customers from USA, Canada and Brazil

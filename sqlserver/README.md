@@ -11,7 +11,7 @@ The tech stack is SQL Server Management / Azure Data Studio, Microsoft Transact-
     -e "SA_PASSWORD=<YourStrong!Passw0rd>" \
     -e "MSSQL_PID=Express" \
     -p 1433:1433 \
-    --name sqlserver \
+    --name sqlserver2017 \
     -d mcr.microsoft.com/mssql/server:2017-latest-ubuntu
     ```
     This command creates a SQL Server 2017 container with the Developer edition (default). SQL Server port 1433 is exposed on the host as port 1433.
@@ -21,7 +21,7 @@ The tech stack is SQL Server Management / Azure Data Studio, Microsoft Transact-
 
 2. Copy a backup file into the container
    Download the `LemonMusic.bak` backup to your machine. Once downloaded, use docker cp to copy the we need to copy the backup file into the container in the /tmp directory.
-    `docker cp ./LemonMusic.bak sqlserver:/tmp`
+    `docker cp ./LemonMusic.bak sqlserver2017:/tmp`
 3. Restore from the following backup `LemonMusic.bak`.
     The backup file is now located inside the container. 
     The following [link](https://github.com/Lemoncode/bootcamp-backend/tree/main/01-stack-relacional/01-sql-server/06-restore-sample-database) show you the steps to do it via SQL Server Management Studio
