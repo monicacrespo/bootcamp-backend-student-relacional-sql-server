@@ -70,13 +70,17 @@ WHERE V.LectureName LIKE 'Clean Code'
 ORDER BY V.CourseUpdatedOn DESC
 ```
 
+## ELearning database project structure
+
+ ![elearningDatabaseProjectStructure](Images/elearning-database-project.JPG)
+
 ## Publish a database project
  1. Right-click the ELearnigPortalDB project in Solution Explorer and select Publish. SSDT will start building your project. If there is no build error, the Publish Database dialog box appears.
  In the Publish Database dialog box, click Edit to edit the Target database connection.
 
 2. In the Connection Properties dialog box, enter your SQL Server instance name and your credentials for authentication. In Connect to a database, enter `ELearningDev`. This will attempt to publish your database project to a new database. You can also choose an existing database to publish to, so that all the changes you have been making to the objects (as scripts) in the offline `ELearningPortalDB` project will be propagated to the live `ELearningDe` database.
 
-    ![DevPublishProfile](Images/dev-publish-profile.JPG)    
+    ![DevPublishProfile](Images/dev-publish-profile.JPG)
 
     If you have permission to make any changes to the database you want to publish to, press the Publish button. If, however, you do not have write access to a production database, you can click the Generate Script button to produce a Transact-SQL publish script,`ELearningDev.publish.sql`, which can then be handed off to a DBA. The DBA can then run the script to update the production server so that its schema is in sync with the database project.
 
