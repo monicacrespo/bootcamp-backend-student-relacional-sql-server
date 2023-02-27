@@ -84,7 +84,7 @@ ORDER BY V.CourseUpdatedOn DESC
 
     If you have permission to make any changes to the database you want to publish to, press the Publish button. If, however, you do not have write access to a production database, you can click the Generate Script button to produce a Transact-SQL publish script,`ELearningDev.publish.sql`, which can then be handed off to a DBA. The DBA can then run the script to update the production server so that its schema is in sync with the database project.
 
-    ![ELearningDevDatabase](Images/eLearningDev-database.JPG)  
+    ![ELearningDeveloperDatabase](Images/eLearningDev-database.JPG)
 
 3. The Data Tools Operations window will show the progress of your publish operations, and notify you of any errors. In this new window, you can also choose to view the deployment preview, the generated script `ELearningDev.publish.sql`, or the full publish results if desired.
 
