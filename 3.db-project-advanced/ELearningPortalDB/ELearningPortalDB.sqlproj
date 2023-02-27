@@ -57,6 +57,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\authors.sql" />
@@ -67,6 +68,7 @@
     <Build Include="Tables\subscriptions.sql" />
     <Build Include="Tables\tags.sql" />
     <Build Include="Tables\users.sql" />
+    <Build Include="Views\vLecturesCoursesCategory.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ELearningDev.publish.xml" />

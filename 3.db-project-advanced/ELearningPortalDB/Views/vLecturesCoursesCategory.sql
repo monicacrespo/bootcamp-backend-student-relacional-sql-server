@@ -1,12 +1,12 @@
 ﻿CREATE VIEW [dbo].[vLecturesCoursesCategory]
 AS
 SELECT
-    dbo.categories.name AS [Category Name], 
-    dbo.courses.name AS [Course Name], 
-    dbo.courses.updatedOn AS [Course Last Updated On], 
-    dbo.lectures.name AS [Lecture Name], 
-    dbo.lectures.publishedOn AS [Lecture Published On], 
-    dbo.authors.name AS [Author Name]
+    dbo.categories.name AS [CategoryName], 
+    dbo.courses.name AS [CourseName], 
+    dbo.courses.updatedOn AS [CourseUpdatedOn], 
+    dbo.lectures.name AS [LectureName], 
+    dbo.lectures.publishedOn AS [LecturePublishedOn], 
+    dbo.authors.name AS [AuthorName]
 FROM 
     dbo.categories 
     INNER JOIN dbo.courses 
