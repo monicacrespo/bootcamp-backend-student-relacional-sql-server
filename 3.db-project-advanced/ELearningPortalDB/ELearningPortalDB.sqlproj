@@ -68,4 +68,9 @@
     <Build Include="Tables\tags.sql" />
     <Build Include="Tables\users.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ELearningDev.publish.xml" />
+    <None Include="ELearningTest.publish.xml" />
+    <None Include="ELearningProd.publish.xml" />
+  </ItemGroup>
 </Project>
