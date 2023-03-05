@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[categories]
 (
-	[id] [int] NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	[id] [tinyint] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	[name] [varchar](50) NOT NULL UNIQUE,
-	[categories_id] [int] NOT NULL,
-	CONSTRAINT [FK_categories_categories] FOREIGN KEY ([categories_id]) REFERENCES [dbo].[categories] ([id])
+	[subCategories_id] [tinyint] NULL,
+	CONSTRAINT [FK_categories_categories] FOREIGN KEY ([subCategories_id]) REFERENCES [dbo].[categories] ([id])
 )

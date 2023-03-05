@@ -146,13 +146,11 @@ In the above e-portal application's model, these are the relationships I've iden
    
 
 ### Relationship categories - categories
-   To meet the first optional requirement to have an structured hierarchical category, I've used the Asymmetric Reflexive Association.
-   One-to-many: A category (parent) might have zero or many sub-categories (child).
-   One-to-one: A subcategory (child) belongs to zero or  only one category (parent). 
+   To meet the first optional requirement to have an structured hierarchical category, I've used the 1:N Reflexive Association.
+   One-to-many: A category (parent) might have zero o many sub-categories (child). 
+   Zero-to-one: A sub-category (child) belongs to only one category (parent).
    
-   A reflexive association is an association between instances of the same class.
-   Asymmetric Reflexive Associations: The ends of the association are semantically different from each other, even though the associated class is the same. Examples include parent-child, supervisor-subordinate and predecessor-successor.
-   Also it is necessary to ensure that the lower bound is always zero on both ends. The reason for this is that otherwise an illogical situation would arise: For example, if you said that each category must have one or more sub-categories, then what about the very last categories in the hierarchy? 
+   A reflexive association is an association between instances of the same class.   
   
    ```
    Backend >> nodejs
@@ -165,17 +163,17 @@ In the above e-portal application's model, these are the relationships I've iden
    {
       id: "1", 
       name: "Back End",
-      categories_id: "1"
+      categories_id: "2"
    }
    {
       id: "2", 
       name: "node js",
-      categories_id: "1"
+      categories_id: "3"
    }
    {
       id: "3", 
       name: "Express",
-      categories_id: "2"
+      categories_id: NULL
    }
    ```
    

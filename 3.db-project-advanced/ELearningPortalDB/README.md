@@ -10,6 +10,9 @@ Based on the data modelling exercise:
 ```
 ├── db-project
 │   ├── ELearningPortalDB 
+│   	├── Images
+│   		├── dev-publish-profile.JPG
+│   		├── eLearningDev-Database.JPG
 │   	├── Tables
 │   		├── authors.sql
 │   		├── categories.sql
@@ -26,12 +29,10 @@ Based on the data modelling exercise:
 │   	├── ELearningDev.publish.xml
 │   	├── ELearningTest.publish.xml
 │   	├── ELearningProd.publish.xml
-│   ├── ELearningDev.publish.sql
-│   ├── ELearningDropTables.sql
-│   ├── README.md
-│   ├── dev-publish-profile
-├── dev-publish-profile.JPG
-├── eLearningDev-Database.JPG
+│   	├── ELearningDev.publish.sql
+│   	├── eLearningDropTables.sql
+│   	├── eLearningInsert.sql
+│   	├── README.md
 ```
 
 ## View and simplification
@@ -66,8 +67,26 @@ SELECT
 	V.LecturePublishedOn,	
 	V.AuthorName
 FROM dbo.vLecturesCoursesCategory AS V
-WHERE V.LectureName LIKE 'Clean Code'
+WHERE V.LectureName LIKE 'Nodejs Fundamentals%'
 ORDER BY V.CourseUpdatedOn DESC
+```
+
+
+|CourseName  |  CourseUpdatedOn | CategoryName |LectureName|LecturePublishedOn|AuthorName|
+| ----------  |---------  | ------  |-----  |-----  |-----  |
+|The Complete Developers Guide to nodejs|2022-04-21	|nodejs	|Nodejs Fundamentals: Enviroment Setup |	2022-03-20	| Braulio Díez
+|The Complete Developers Guide to nodejs|	2022-04-21	|nodejs	|Nodejs Fundamentals: Package Management|	2022-03-25|	Diego Martín
+
+The query to get the authors per course is the following:
+```
+SELECT DISTINCT	
+	dbo.authors.name
+FROM
+   dbo.courses
+	INNER JOIN dbo.lectures 
+            ON dbo.courses.id = dbo.lectures.courses_id 
+	INNER JOIN dbo.authors 
+            ON dbo.lectures.authors_id = dbo.authors.id
 ```
 
 ## ELearning database project structure
