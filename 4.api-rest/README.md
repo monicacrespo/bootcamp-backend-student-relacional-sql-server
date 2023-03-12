@@ -1,109 +1,117 @@
-# laboratorio
-Laboratorio de API REST con persistencia en base de datos relacional SQL Server. Sigue las instrucciones y sube tu código a un repositorio git de tu elección.
+# Relational Module 2 exercise - Api Rest
+API REST lab with SQL Server database persistence. Follow the instructions and store your code in a Git repository.
 
-## Requisitos
-- SDK de .NET 7
+## Prerequisites
+- SDK .NET 7
 - EF CLI
 - Docker
-- SQL Server (como contenedor Docker)
+- SQL Server (in a Docker container)
 
-## Instrucciones
-El ejercicio consiste en crear una API REST para la gestión de libros, con persistencia en SQL Server utilizando Entity Framework. Se parte del siguiente modelo Entidad Relación
+## Instructions
+Create an API REST to manage books with SQL Server persistence, using Entity Framework. This is the initial Entity Relational model
 
-![Modelo E-R](doc/books_er_model.png)
+![E-R Model](doc/books_er_model.png)
 
-Completa cada uno de los siguientes puntos teniendo en cuenta que es obligatorio completar del 1 al 8, es opcional completar del 9 al 11 y la consecución del 12 al 14 sería un reto opcional más avanzado.
+Complete each of the following requirements taking into consideration that is mandatory to complete from 1 to 7, it is optional from 8 to 10, and it is a challenge from 11 to 13.
 
-1. Descarga los archivos de este repositorio como un zip y descomprímelos en tu propio repositorio git donde subirás cambios para su evaluación.
-2. Ejecuta `create-structure.bat` y verifica que se crea una solución con proyectos básicos. Abre la solución. Elimina el soporte para https y de IIS.
-3. Haz un `git add .`, `git commit -m "solución inicial"` y `git push` a tu repositorio git remoto en GitLab o GitHub y verifica que los cambios se suben correctamente.
-4. Crea todo lo necesario para una creación de migración de base de datos en SQL Server con *code first* y la EF CLI. Sube los cambios a tu repositorio git.
-5. Crea un endpoint para añadir Autores (i.e: `POST api/authors`) que acepte payload en formato json para crear nuevos autores con nombre, apellido, fecha de nacimiento y nacionalidad como country code de dos caracteres *ISO 3166-1 alpha-2 code*. Sube los cambios a tu repositorio git.
-6. Crea un endpoint para añadir Libros (i.e: `POST api/books`) que acepte payload en formato json para crear nuevos libros con título, fecha de publicación y descripción. Además debe aceptar el identificador del autor y asociarse con ese autor en concreto. Sube los cambios a tu repositorio git.
-7. Crea un endpoint para modificar el título o la descripción de un libro (i.e: `PUT api/books/{bookId}`) dado su identificador único. Sube los cambios a tu repositorio git.
-8. Crea un endpoint para consultar todos los libros de la base de datos (i.e: `GET api/books`) en el que se devuelve una respuesta en formato json que contiene una colección de objetos con la siguiente información, y sube los cambios a tu repositorio git.
-    - Id: el identificador único del libro
-    - Title: el título del libro
-    - Description: la descripción del libro
-    - PublishedOn: la fecha en formato ISO_8601 UTC
-    - Author: el nombre completo
-9. Añade Swagger/OpenAPI (i.e: paquete nuget `Swashbuckle.AspNetCore`) para interactuar con los endpoints desde la url `/swagger`. Sube los cambios a tu repositorio git.
-10. Añade un test funcional donde se valide que: Dada la creación por http de un autor, Cuando se lee de la base de datos el autor con el Id generado, Entonces devuelve el autor que se había creado. Sube los cambios a tu repositorio git.
-11. Añade un test funcional donde se valide que: Dada la creación de un autor que tiene dos libros, Cuando se lee a través del endpoint de http la lista de libros, Entonces debería haber dos, con los datos esperados tanto del autor como de los libros. Sube los cambios a tu repositorio git. 
-12. Añade filtro como query parameter en `GET api/books?title=foo` que busque libros que contengan solamente lo indicado en el título. Sube los cambios a tu repositorio git.
-13. Añade otro filtro como query parameter en `GET api/books?title=foo&author=bar` que busque libros que contengan solamente lo indicado en el título y además contenga el nombre o el apellido del autor indicado. Sube los cambios a tu repositorio git.
-14. Añade autenticación básica con un filtro o middleware, con credenciales configurables en el `appsettings.json` para proteger todos los endpoint y permitir que solamente las peticiones http que contengan una cabecera `Authorization: Basic <base_64_credentials>` puedan acceder, y modifica Swagger y los tests para que todo pueda seguir funcionando si se incluye autenticación básica. Sube los cambios a tu repositorio git.
+1. Run `create-structure.bat` y verify that a solution with three empty projects are created (BookManager, BookManager.Application and BookManager.Domain). Open the solution and delete the https and IIS support.
+2. Do a `git add .`, `git commit -m "solución inicial"` and `git push` to your remote git repository (GitLab or GitHub) and verify that your changes are pushed correctly.
+3. Create a SQL Server database migration using *code first* and the EF CLI. Push your changes to your git repository.
+4. Create an endpoint to add Authors (i.e: `POST api/authors`) that accepts payload in json format to create new authors wit name, surname, datebirth and nacionality as country code of two characters *ISO 3166-1 alpha-2 code*. Push your changes to your git repository.
+5. Create an endpoint to add Books (i.e: `POST api/books`) that accepts payload in json format to create new books with title, publish date and description. Also, it needs to accept the author's id Además debe aceptar el identificador del autor y associate with that specific author. Push your changes to your git repository.
+6. Create an endpoint to update the title or description of a book (i.e: `PUT api/books/{bookId}`) given its id. Push your changes to your git repository.
+7. Create an endpoint to query all books (i.e: `GET api/books`) and return a collection of books with the following information. 
+    - Id: the unique identifier of the book
+    - Title: the title of the book
+    - Description: book's description
+    - PublishedOn: the date in ISO_8601 UTC format
+    - Author: complete name
+    Push your changes to your git repository.
 
-Se valorará:
-- la limpieza del código y la separación de responsabilidades
-- la elaboración de pruebas automáticas
-- la consecución de los objetivos
-- una buena descripción de cómo ejecutar y lanzar la aplicación para cualquier persona que quiera descargarse el código
+8. Add Swagger/OpenAPI (i.e: nuget packet `Swashbuckle.AspNetCore`) to interact with the endpoints from the url `/swagger`. Push your changes to your git repository.
+9. Add a functional test for the following use case: 
+   - Given the creation of an author by http, 
+   - When reading from the database the author using its id generated,
+   - Then it returns the author that was created.
+   Push your changes to your git repository.
+10. Add a functional test for the following use case:  
+    - Given the creation of an author that has two books, 
+    - When quering all books using the proper endpoint,
+    - Then it should return the author and the two books.   
+    Push your changes to your git repository.
 
-## Anexos 
-A continuación se describen herramientas a utilizar y varias utilidades que permitan alcanzar los objetivos para esta aplicación web.
+12. Add a filter as a query parameter in `GET api/books?title=foo` to query books with specific title. Push your changes to your git repository.
+
+13. Add another filter as a query parameter in `GET api/books?title=foo&author=bar` to query books with specific title, and also books whose author's name or surname contains the value passed in the filter. Push your changes to your git repository.
+
+14. Add basic authentication with a filter or middleware, with configurable credentials in `appsettings.json` to secure all endpoints and allows only the http requests that contain the `Authorization: Basic <base_64_credentials>` header. Update Swagger and tests accordingly. Push your changes to your git repository.
+
+It will be valued:
+- clean code and separation of responsibilities
+- implementation of automated testing
+- achievement of goals
+- documentation of how to run and launch the app for anybody that wants to download the code
+
+## Appendix 
 
 ### SQL Server con Docker
-Para arrancar un servidor de SQL Server 2019 en local con Docker y credenciales `sa / Lem0nC0de!`, ejecuta lo siguiente:
+To run a SQL Server 2019 serve in local with Docker and `sa / YourStrong!Passw0rd` credentials, run the following:
 ```
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Lem0nCode!" -p 1433:1433 --name sqlserver2019 -d mcr.microsoft.com/mssql/server:2019-latest
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 --name sqlserver2019 -d mcr.microsoft.com/mssql/server:2019-latest
 ```
 
-Si hay algún error, se pueden consultar las trazas con `docker logs sqlserver2019` para ver cuál es el error que hace que el contenedor no arranque.
+If there is any error, you can query the logs with `docker logs sqlserver2019`.
 
-NOTA: Si ya tienes un contenedor, creado previamente, llamado `sqlserver2019`, arráncalo con
+NOTE: If you've got already a container, previously created, called `sqlserver2019`, run it with the following command
 ```
 docker start sqlserver2019
 ```
 
-NOTA: Opcionalmente instala una extensión en VSCODE llamada SQL Server (mssql) para conectar y ver base de datos.
-
-### Conexión a SQL Server
-En visual Studio Community Edition, ve a *View > SQL Server Object Explorer* y crea una nueva conexión a 
+### SQL Server connection
+Using visual Studio Community Edition, go to *View > SQL Server Object Explorer* and create a new connection to 
 Server Name: `localhost`
 Authentication: `SQL Server Authentication`
 User Name: `sa`
-Password: `Lem0nCode!`
+Password: `YourStrong!Passw0rd`
 Database Name: `<default>`
 
 ### Connection string
-Para conectar código con la base de datos, utiliza el siguiente connection string:
+to connect code to the database, use the following connection string:
 ```
-"Server=localhost;Database=Books;user=sa;password=Lem0nCode!;Encrypt=False"
+"Server=localhost;Database=Books;user=sa;password=YourStrong!Passw0rd;Encrypt=False"
 ```
 
-NOTA: Este connection string asume que el nombre de la base de datos a utilizar es `Chats`
+NOTE: The above connection string indicates that the database name is `Books`
 
-### Instalación de la herramienta Dotnet EF
-Si ya tienes el SDK de .NET 7 (i.e: `dotnet --version` muestra `7.0.100` o superior), instala la CLI de Entity Framework Core con
+### Installation of Dotnet EF tool
+If you've got already the SDK .NET 7 (i.e: `dotnet --version` shows `7.0.100` or above), install the CLI Entity Framework Core using the following command
 ```
 dotnet tool install --global dotnet-ef
 ```
 
-y compruébalo con
+You can verify it with 
 ```
 dotnet ef --version
 ```
-que debería mostrar algo como
+that should show something like 
 ```
 Entity Framework Core .NET Command-line Tools
 7.0.0
 ```
 
-Si tenías una versión anterior, la puedes actualizar con
+If you had a previous version, you can update it with 
 ```
 dotnet tool update --global dotnet-ef
 ```
 
-### Migraciones
-Al utilizar 
-La inicial se crea con
+### Migrations
+
 ``` 
 dotnet ef migrations add inicial --project src/<project_containing_db_context> --startup-project src/<main_project>
 ```
+A directory called  `Migrations` will be automatically created.
 
-Un directoro llamado `Migrations` será automáticamente creado.
-Para aplicar las migraciones generadas se ejecuta:
+To apply the migrations run the following command:
 ``` 
 dotnet ef database update --project src/<project_containing_db_context> --startup-project src/<main_project>
 ```
