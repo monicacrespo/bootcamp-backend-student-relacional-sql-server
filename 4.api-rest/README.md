@@ -1,4 +1,4 @@
-# Relational Module 2 exercise - Api Rest
+# Relational Module 2 Exercise - Api Rest
 API REST lab with SQL Server database persistence. Follow the instructions and store your code in a Git repository.
 
 ## Prerequisites
@@ -107,11 +107,57 @@ dotnet tool update --global dotnet-ef
 ### Migrations
 
 ``` 
-dotnet ef migrations add inicial --project src/<project_containing_db_context> --startup-project src/<main_project>
+dotnet ef migrations add initial --project src/<project_containing_db_context> --startup-project src/<main_project>
 ```
 A directory called  `Migrations` will be automatically created.
 
-To apply the migrations run the following command:
+To apply the migrations run the following dotnet CLI command:
 ``` 
 dotnet ef database update --project src/<project_containing_db_context> --startup-project src/<main_project>
 ```
+
+## Solution structure 
+
+```
+├── BookManager
+│   ├── appsettings.json
+│   ├── Program.cs
+│   ├── Startup.cs
+├── BookManager.Application
+│   ├── IBookManagerDbContext.cs
+├── BookManager.Domain
+│   ├── AuthorEntity.cs
+│   ├── BookEntity.cs
+├── BookManager.Persistence.SqlServer
+│   ├── Migrations
+│   	├── 20230312173037_initial.cs
+│   	├── BookManagerDbContextModelSnapshot.cs
+│   ├── BookManagerDbContext.cs
+```
+
+## EF Core NuGet Packages
+Entity Framework Core (EF Core) is shipped as NuGet packages. The packages needed by this application using a SQL Server database system are the followings:
+
+|Project        |  EF Core NuGet Package | 
+| ----------    |----------------------- |
+| BookManager.Persistence.SqlServer | Microsoft.EntityFrameworkCore.SqlServer |
+| BookManager.Application| Microsoft.EntityFrameworkCore | 
+| BookManager| Microsoft.EntityFrameworkCore.Design | 
+
+## EF Core Migrations
+
+To create the initial migration run the following dotnet CLI command:
+```
+dotnet ef migrations add initial --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
+```
+
+![Initial Migration](doc/InitialMigration.JPG)
+Note: Make Sure the `BookManager.Persistence.SqlServer` project which has EF core reference is set as Start up project.
+
+The following dotnet CLI command will run the sql script the previous command generated:
+``` 
+dotnet ef database update --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
+``` 
+![DB Update 1](doc/ApplyingMigration_1.JPG)
+![DB Update 2](doc/ApplyingMigration_2.JPG)
+![SQL Server Books Database](doc/SQLServerBooksDatabase.JPG)
