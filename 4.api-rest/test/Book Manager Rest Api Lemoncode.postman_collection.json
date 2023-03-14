@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "fd7da70c-f191-45d5-866b-435efa285097",
+		"name": "Book Manager Rest Api Lemoncode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Irene\",\r\n    \"lastName\": \"Castellanos\",\r\n    \"DateOfBirth\": \"1980-08-21T00:00:00.000Z\",\r\n    \"countryCode\": \"ES\"  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5236/api/bookmanager/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5236",
+					"path": [
+						"api",
+						"bookmanager",
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5236/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5236",
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -10,11 +10,10 @@
     public class AuthorEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Surname { get; set; } = string.Empty;
-        public DateTime Birth { get; set; }
-
-        [StringLength(2, ErrorMessage = "The {0} value cannot exceed {1} characters. ")]
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = string.Empty;
+        public DateTime DateOfBirth { get; set; }
+        
         public string CountryCode { get; set; } = string.Empty;
 
         // Navigation properties

@@ -17,10 +17,10 @@ namespace BookManager.Persistence.SqlServer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Birth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CountryCode = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CountryCode = table.Column<string>(type: "nvarchar(2)", nullable: false)
                 },
                 constraints: table =>
                 {

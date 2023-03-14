@@ -27,13 +27,15 @@
             }
 
             services
-            
-             .AddDbContext<BookManagerDbContext>(options =>
-             {
-                 options.UseSqlServer(booksConnectionString);
-             })
-             .AddScoped<IBookManagerDbContext, BookManagerDbContext>()            
-             .AddControllers();
+                .AddTransient<INotificationService>(sp =>
+                    new NotificationService(new NotificationServiceConfiguration { Host = websocketHostUrl }))
+                .AddTransient<BookManagerCommandService>()            
+                .AddDbContext<BookManagerDbContext>(options =>
+                {
+                     options.UseSqlServer(booksConnectionString);
+                })
+                .AddScoped<IBookManagerDbContext, BookManagerDbContext>()            
+                .AddControllers();
         }
         
         // Middleware pipeline

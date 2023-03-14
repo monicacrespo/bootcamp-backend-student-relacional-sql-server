@@ -17,7 +17,7 @@ Complete each of the following requirements taking into consideration that is ma
 1. Run `create-structure.bat` y verify that a solution with three empty projects are created (BookManager, BookManager.Application and BookManager.Domain). Open the solution and delete the https and IIS support.
 2. Do a `git add .`, `git commit -m "solución inicial"` and `git push` to your remote git repository (GitLab or GitHub) and verify that your changes are pushed correctly.
 3. Create a SQL Server database migration using *code first* and the EF CLI. Push your changes to your git repository.
-4. Create an endpoint to add Authors (i.e: `POST api/authors`) that accepts payload in json format to create new authors wit name, surname, datebirth and nacionality as country code of two characters *ISO 3166-1 alpha-2 code*. Push your changes to your git repository.
+4. Create an endpoint to add Authors (i.e: `POST api/authors`) that accepts payload in json format to create new authors with name, surname, datebirth and nacionality as country code of two characters *ISO 3166-1 alpha-2 code*. Push your changes to your git repository.
 5. Create an endpoint to add Books (i.e: `POST api/books`) that accepts payload in json format to create new books with title, publish date and description. Also, it needs to accept the author's id Además debe aceptar el identificador del autor y associate with that specific author. Push your changes to your git repository.
 6. Create an endpoint to update the title or description of a book (i.e: `PUT api/books/{bookId}`) given its id. Push your changes to your git repository.
 7. Create an endpoint to query all books (i.e: `GET api/books`) and return a collection of books with the following information. 
@@ -120,10 +120,16 @@ dotnet ef database update --project src/<project_containing_db_context> --startu
 
 ```
 ├── BookManager
+│   ├── Controllers
+│   	├── BookManagerController.cs
+│   	├── HealthController.cs
 │   ├── appsettings.json
 │   ├── Program.cs
 │   ├── Startup.cs
 ├── BookManager.Application
+│   ├── Models
+│   	├── Author.cs
+│   ├── BookManagerCommandService.cs
 │   ├── IBookManagerDbContext.cs
 ├── BookManager.Domain
 │   ├── AuthorEntity.cs
@@ -152,7 +158,6 @@ dotnet ef migrations add initial --project src/BookManager.Persistence.SqlServer
 ```
 
 ![Initial Migration](doc/InitialMigration.JPG)
-Note: Make Sure the `BookManager.Persistence.SqlServer` project which has EF core reference is set as Start up project.
 
 The following dotnet CLI command will run the sql script the previous command generated:
 ``` 
