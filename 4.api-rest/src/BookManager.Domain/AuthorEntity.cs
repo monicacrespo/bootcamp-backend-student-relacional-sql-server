@@ -12,7 +12,7 @@
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = string.Empty;
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         
         public string CountryCode { get; set; } = string.Empty;
 

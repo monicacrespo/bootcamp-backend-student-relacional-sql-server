@@ -1,145 +1,54 @@
 # Relational Module 2 Exercise - Api Rest
-API REST lab with SQL Server database persistence. Follow the instructions and store your code in a Git repository.
-
-## Prerequisites
-- SDK .NET 7
-- EF CLI
-- Docker
-- SQL Server (in a Docker container)
-
-## Instructions
-Create an API REST to manage books with SQL Server persistence, using Entity Framework. This is the initial Entity Relational model
-
-![E-R Model](doc/books_er_model.png)
-
-Complete each of the following requirements taking into consideration that is mandatory to complete from 1 to 7, it is optional from 8 to 10, and it is a challenge from 11 to 13.
-
-1. Run `create-structure.bat` y verify that a solution with three empty projects are created (BookManager, BookManager.Application and BookManager.Domain). Open the solution and delete the https and IIS support.
-2. Do a `git add .`, `git commit -m "solución inicial"` and `git push` to your remote git repository (GitLab or GitHub) and verify that your changes are pushed correctly.
-3. Create a SQL Server database migration using *code first* and the EF CLI. Push your changes to your git repository.
-4. Create an endpoint to add Authors (i.e: `POST api/authors`) that accepts payload in json format to create new authors with name, surname, datebirth and nacionality as country code of two characters *ISO 3166-1 alpha-2 code*. Push your changes to your git repository.
-5. Create an endpoint to add Books (i.e: `POST api/books`) that accepts payload in json format to create new books with title, publish date and description. Also, it needs to accept the author's id Además debe aceptar el identificador del autor y associate with that specific author. Push your changes to your git repository.
-6. Create an endpoint to update the title or description of a book (i.e: `PUT api/books/{bookId}`) given its id. Push your changes to your git repository.
-7. Create an endpoint to query all books (i.e: `GET api/books`) and return a collection of books with the following information. 
-    - Id: the unique identifier of the book
-    - Title: the title of the book
-    - Description: book's description
-    - PublishedOn: the date in ISO_8601 UTC format
-    - Author: complete name
-    Push your changes to your git repository.
-
-8. Add Swagger/OpenAPI (i.e: nuget packet `Swashbuckle.AspNetCore`) to interact with the endpoints from the url `/swagger`. Push your changes to your git repository.
-9. Add a functional test for the following use case: 
-   - Given the creation of an author by http, 
-   - When reading from the database the author using its id generated,
-   - Then it returns the author that was created.
-   Push your changes to your git repository.
-10. Add a functional test for the following use case:  
-    - Given the creation of an author that has two books, 
-    - When quering all books using the proper endpoint,
-    - Then it should return the author and the two books.   
-    Push your changes to your git repository.
-
-12. Add a filter as a query parameter in `GET api/books?title=foo` to query books with specific title. Push your changes to your git repository.
-
-13. Add another filter as a query parameter in `GET api/books?title=foo&author=bar` to query books with specific title, and also books whose author's name or surname contains the value passed in the filter. Push your changes to your git repository.
-
-14. Add basic authentication with a filter or middleware, with configurable credentials in `appsettings.json` to secure all endpoints and allows only the http requests that contain the `Authorization: Basic <base_64_credentials>` header. Update Swagger and tests accordingly. Push your changes to your git repository.
-
-It will be valued:
-- clean code and separation of responsibilities
-- implementation of automated testing
-- achievement of goals
-- documentation of how to run and launch the app for anybody that wants to download the code
-
-## Appendix 
-
-### SQL Server con Docker
-To run a SQL Server 2019 serve in local with Docker and `sa / YourStrong!Passw0rd` credentials, run the following:
-```
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 --name sqlserver2019 -d mcr.microsoft.com/mssql/server:2019-latest
-```
-
-If there is any error, you can query the logs with `docker logs sqlserver2019`.
-
-NOTE: If you've got already a container, previously created, called `sqlserver2019`, run it with the following command
-```
-docker start sqlserver2019
-```
-
-### SQL Server connection
-Using visual Studio Community Edition, go to *View > SQL Server Object Explorer* and create a new connection to 
-Server Name: `localhost`
-Authentication: `SQL Server Authentication`
-User Name: `sa`
-Password: `YourStrong!Passw0rd`
-Database Name: `<default>`
-
-### Connection string
-to connect code to the database, use the following connection string:
-```
-"Server=localhost;Database=Books;user=sa;password=YourStrong!Passw0rd;Encrypt=False"
-```
-
-NOTE: The above connection string indicates that the database name is `Books`
-
-### Installation of Dotnet EF tool
-If you've got already the SDK .NET 7 (i.e: `dotnet --version` shows `7.0.100` or above), install the CLI Entity Framework Core using the following command
-```
-dotnet tool install --global dotnet-ef
-```
-
-You can verify it with 
-```
-dotnet ef --version
-```
-that should show something like 
-```
-Entity Framework Core .NET Command-line Tools
-7.0.0
-```
-
-If you had a previous version, you can update it with 
-```
-dotnet tool update --global dotnet-ef
-```
-
-### Migrations
-
-``` 
-dotnet ef migrations add initial --project src/<project_containing_db_context> --startup-project src/<main_project>
-```
-A directory called  `Migrations` will be automatically created.
-
-To apply the migrations run the following dotnet CLI command:
-``` 
-dotnet ef database update --project src/<project_containing_db_context> --startup-project src/<main_project>
-```
+API REST lab with SQL Server database persistence. Follow the instructions stored in `doc` folder.
 
 ## Solution structure 
 
 ```
-├── BookManager
-│   ├── Controllers
-│   	├── BookManagerController.cs
-│   	├── HealthController.cs
-│   ├── appsettings.json
-│   ├── Program.cs
-│   ├── Startup.cs
-├── BookManager.Application
-│   ├── Models
-│   	├── Author.cs
-│   ├── BookManagerCommandService.cs
-│   ├── IBookManagerDbContext.cs
-├── BookManager.Domain
-│   ├── AuthorEntity.cs
-│   ├── BookEntity.cs
-├── BookManager.Persistence.SqlServer
-│   ├── Migrations
-│   	├── 20230312173037_initial.cs
-│   	├── BookManagerDbContextModelSnapshot.cs
-│   ├── BookManagerDbContext.cs
+├── src
+│   ├── BookManager
+│   	├── Controllers
+│   		├── BookManagerController.cs
+│   		├── HealthController.cs
+│   	├── appsettings.json
+│   	├── Program.cs
+│   	├── Startup.cs
+│   ├── BookManager.Application
+│   	├── Extensions
+│   		├── RegionInfoHelper.cs
+│   	├── Models
+│   		├── Author.cs
+│   		├── Book.cs
+│   	├── BookManagerCommandService.cs
+│   	├── IBookManagerDbContext.cs
+│   ├── BookManager.Domain
+│   	├── AuthorEntity.cs
+│   	├── BookEntity.cs
+│   ├── BookManager.Persistence.SqlServer
+│   	├── Migrations
+│   		├── 20230312173037_InitialCreate.cs
+│   		├── BookManagerDbContextModelSnapshot.cs
+│   	├── BookManagerDbContext.cs
+├── test
+│   ├── BookManager.Application.UnitTests
+│   	├──BookManagerCommandServiceTests.cs
+│   	├──RegionInfoHelperTests.cs
+│   	├──Usings.cs
+│   ├── BookManager.Application.FunctionalTests
+│   	├──TestSupport
+│   		├── IntegrationTest.cs
+│   	├──appsettings.Test.json
+│   	├──HealthTests.cs
+│   ├──Book Manager Rest Api Lemoncode.postman_collection.json
 ```
+
+## URI Design
+
+| Resource  				|  HTTP Verb	|	CRUD    |  HTTP Status Code |
+| ------------------| ------------| --------| ---------------   | 
+| api/authors 			| POST	      | Create  | 200 OK (id of the new author)		  | 
+| api/books  			  | POST	      | Create	| 200 OK (id of the new book)	 	  | 
+| api/health        | GET         | N/A		  | 200	Ok           |
+
 
 ## EF Core NuGet Packages
 Entity Framework Core (EF Core) is shipped as NuGet packages. The packages needed by this application using a SQL Server database system are the followings:
@@ -150,19 +59,60 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
 | BookManager.Application| Microsoft.EntityFrameworkCore | 
 | BookManager| Microsoft.EntityFrameworkCore.Design | 
 
-## EF Core Migrations
+## Getting Started
+1. Create your database and schema
+      
+   * Using the .NET Core CLI tools, which work on all platforms, the first migration has been created by running the following EF Core command:
+    
+     ```
+     dotnet ef migrations add InitialCreate --project src/c --startup-project src/BookManager
+     ```
 
-To create the initial migration run the following dotnet CLI command:
-```
-dotnet ef migrations add initial --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
-```
+     You could see the directory called `Migrations` in `BookManager.Persistence.SqlServer` project which defines the following schema:
 
-![Initial Migration](doc/InitialMigration.JPG)
+     ```
+     CREATE TABLE [Books] (
+          [Id] int NOT NULL IDENTITY,
+          [Title] nvarchar(150) NOT NULL,
+          [PublishedOn] datetime2 NOT NULL,
+          [Description] nvarchar(450) NOT NULL,
+          [AuthorId] int NOT NULL,
+          CONSTRAINT [PK_Books] PRIMARY KEY ([Id]),
+          CONSTRAINT [FK_Books_Authors_AuthorId] FOREIGN KEY ([AuthorId]) REFERENCES [Authors] ([Id]) ON DELETE CASCADE
+      );
 
-The following dotnet CLI command will run the sql script the previous command generated:
-``` 
-dotnet ef database update --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
-``` 
-![DB Update 1](doc/ApplyingMigration_1.JPG)
-![DB Update 2](doc/ApplyingMigration_2.JPG)
-![SQL Server Books Database](doc/SQLServerBooksDatabase.JPG)
+     CREATE TABLE [Authors] (
+          [Id] int NOT NULL IDENTITY,
+          [FirstName] nvarchar(100) NOT NULL,
+          [LastName] nvarchar(100) NOT NULL,
+          [DateOfBirth] datetime2 NULL,
+          [CountryCode] nvarchar(2) NOT NULL,
+          CONSTRAINT [PK_Authors] PRIMARY KEY ([Id])
+      );
+     ```
+
+    
+     ![Initial Migration](doc/InitialMigration.JPG)
+ 
+   * Create your database and your schema from the `InitialCreate` migration using the following EF Core command:
+  
+      ``` 
+      dotnet ef database update --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
+      ``` 
+
+      ![DB Update 1](doc/ApplyingMigration_1.JPG)
+      ![DB Update 2](doc/ApplyingMigration_2.JPG)
+      ![SQL Server Books Database](doc/SQLServerBooksDatabase.JPG)
+
+    That's all there is to it - your application is ready to run on your new database.
+
+## How to test this API during development using Postman
+1. From Postman, import the `Book Manager Rest Api Lemoncode.postman_collection.json` collection located under `Test` folder.
+2. From Visual Studio in Development Mode, run the ASP.NET Core Web API by Pressing F5 key or the green "play" button. Visual Studio should start up a browser automatically.
+3. From Postman, send `0. Health` API request. The HTTP response should be 200 OK.
+4. From Postman, send `1. Create Author` API request. The 200 OK HTTP response will contain the ID of the author created.
+  ![Postman Create Author](doc/PostmanCreateAuthor.JPG)
+5. From Postman, send `2. Create Book With Valid Author` API request. The 200 OK HTTP response will contain the ID of the book created.
+  ![Postman Create Book Valid Author](doc/Postman-CreateBook-ValidAuthor.JPG)
+6. From Postman, send `3. Create Book With Invalid Author` API request. 
+  ![Postman Create Book Invalid Author](doc/Postman-CreateBook-InvalidAuthor.JPG)

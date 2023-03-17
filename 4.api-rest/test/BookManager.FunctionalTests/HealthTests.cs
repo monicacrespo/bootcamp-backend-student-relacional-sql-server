@@ -1,7 +1,9 @@
 namespace BookManager.FunctionalTests {
+
     using System.Net;
     using BookManager.FunctionalTests.TestSupport;
     using FluentAssertions;
+
     public class HealthTests : IntegrationTest
     {
         [Fact]

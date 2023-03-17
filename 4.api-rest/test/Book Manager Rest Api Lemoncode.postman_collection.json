@@ -6,13 +6,13 @@
 	},
 	"item": [
 		{
-			"name": "Create Author",
+			"name": "1. Create Author",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Irene\",\r\n    \"lastName\": \"Castellanos\",\r\n    \"DateOfBirth\": \"1980-08-21T00:00:00.000Z\",\r\n    \"countryCode\": \"ES\"  \r\n}",
+					"raw": "{\r\n    \"firstName\": \"Almudena\",\r\n    \"lastName\": \"Grandes\",\r\n    \"DateOfBirth\": \"1960-05-07T00:00:00.000Z\",\r\n    \"countryCode\": \"ES\"  \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5236/api/bookmanager/authors",
+					"raw": "http://localhost:5236/api/authors",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,7 +28,6 @@
 					"port": "5236",
 					"path": [
 						"api",
-						"bookmanager",
 						"authors"
 					]
 				}
@@ -36,7 +35,65 @@
 			"response": []
 		},
 		{
-			"name": "Health",
+			"name": "2. Create Book With Valid Author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Todo va a mejorar\",\r\n    \"PublishedOn\": \"2022-10-01T00:00:00.000Z\",\r\n    \"Description\": \"Galería inolvidable de personajes, que van contando su experiencia de adaptación a un país que ha sufrido fuertes sacudidas y en el que no quieren resignarse.\",\r\n    \"authorId\": \"1\"  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5236/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5236",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create Book With Invalid Author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Todo va a mejorar\",\r\n    \"PublishedOn\": \"2022-10-01T00:00:00.000Z\",\r\n    \"Description\": \"Galería inolvidable de personajes, que van contando su experiencia de adaptación a un país que ha sufrido fuertes sacudidas y en el que no quieren resignarse.\",\r\n    \"authorId\": \"2\"  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5236/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5236",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0. Health",
 			"request": {
 				"method": "GET",
 				"header": [],
