@@ -1,5 +1,5 @@
 # Relational Module 2 Exercise - Api Rest
-API REST lab with SQL Server database persistence. Follow the instructions stored in `doc` folder.
+API REST lab with SQL Server database persistence. Follow the instructions stored [here](doc/README.md#instructions).
 
 ## Solution structure 
 
@@ -13,12 +13,14 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 │   	├── Program.cs
 │   	├── Startup.cs
 │   ├── BookManager.Application
-│   	├── Extensions
-│   		├── RegionInfoHelper.cs
 │   	├── Models
 │   		├── Author.cs
 │   		├── Book.cs
-│   	├── BookManagerCommandService.cs
+│   		├── BookManagerErrorResponse.cs
+│   	├── Validators
+│   		├── AuthorValidator.cs
+│   		├── BookValidator.cs
+│   	├── BookManagerService.cs
 │   	├── IBookManagerDbContext.cs
 │   ├── BookManager.Domain
 │   	├── AuthorEntity.cs
@@ -30,8 +32,9 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 │   	├── BookManagerDbContext.cs
 ├── test
 │   ├── BookManager.Application.UnitTests
+│   	├──ValidatorTests
+│   		├── AuthorValidatorTest.cs
 │   	├──BookManagerCommandServiceTests.cs
-│   	├──RegionInfoHelperTests.cs
 │   	├──Usings.cs
 │   ├── BookManager.Application.FunctionalTests
 │   	├──TestSupport
@@ -47,6 +50,7 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 | ------------------| ------------| --------| ---------------   | 
 | api/authors 			| POST	      | Create  | 200 OK (id of the new author)		  | 
 | api/books  			  | POST	      | Create	| 200 OK (id of the new book)	 	  | 
+| api/books/{id:int}	  | PUT	       | Update	| 200 OK (updated book)	 	  | 
 | api/health        | GET         | N/A		  | 200	Ok           |
 
 
@@ -65,30 +69,36 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
    * Using the .NET Core CLI tools, which work on all platforms, the first migration has been created by running the following EF Core command:
     
      ```
-     dotnet ef migrations add InitialCreate --project src/c --startup-project src/BookManager
+     dotnet ef migrations add InitialCreate --project src/BookManager.Persistence.SqlServer --startup-project src/BookManager
      ```
 
      You could see the directory called `Migrations` in `BookManager.Persistence.SqlServer` project which defines the following schema:
 
      ```
-     CREATE TABLE [Books] (
-          [Id] int NOT NULL IDENTITY,
-          [Title] nvarchar(150) NOT NULL,
-          [PublishedOn] datetime2 NOT NULL,
-          [Description] nvarchar(450) NOT NULL,
-          [AuthorId] int NOT NULL,
-          CONSTRAINT [PK_Books] PRIMARY KEY ([Id]),
-          CONSTRAINT [FK_Books_Authors_AuthorId] FOREIGN KEY ([AuthorId]) REFERENCES [Authors] ([Id]) ON DELETE CASCADE
-      );
-
+     
      CREATE TABLE [Authors] (
           [Id] int NOT NULL IDENTITY,
           [FirstName] nvarchar(100) NOT NULL,
           [LastName] nvarchar(100) NOT NULL,
+          [FullName] AS [FirstName] + ' ' + [LastName],
           [DateOfBirth] datetime2 NULL,
-          [CountryCode] nvarchar(2) NOT NULL,
+          [CountryCode] nvarchar(2) NULL,
           CONSTRAINT [PK_Authors] PRIMARY KEY ([Id])
       );
+
+     CREATE TABLE [Books] (
+          [Id] int NOT NULL IDENTITY,
+          [Title] nvarchar(150) NOT NULL,
+          [PublishedOn] datetime2 NULL,
+          [Description] nvarchar(450) NOT NULL,
+          [AuthorId] int NOT NULL,
+          CONSTRAINT [PK_Books] PRIMARY KEY ([Id]),
+          CONSTRAINT [FK_Books_Authors_AuthorId] FOREIGN KEY ([AuthorId]) REFERENCES [Authors] ([Id]) ON DELETE NO ACTION
+      );
+     
+      CREATE UNIQUE INDEX [IX_Authors_FirstName_LastName] ON [Authors] ([FirstName], [LastName]);
+      CREATE INDEX [IX_Books_AuthorId] ON [Books] ([AuthorId]);
+      CREATE UNIQUE INDEX [IX_Books_Title] ON [Books] ([Title]);
      ```
 
     

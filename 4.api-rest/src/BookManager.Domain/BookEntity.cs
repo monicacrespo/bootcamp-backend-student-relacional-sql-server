@@ -12,7 +12,7 @@
 
         public string Title { get; set; } = null!;
 
-        public DateTime PublishedOn { get; set; }
+        public DateTime? PublishedOn { get; set; }
 
         public string Description { get; set; } = null!;
 

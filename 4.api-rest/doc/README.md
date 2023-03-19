@@ -10,7 +10,7 @@ API REST lab with SQL Server database persistence. Follow the instructions and s
 ## Instructions
 Create an API REST to manage books with SQL Server persistence, using Entity Framework. This is the initial Entity Relational model
 
-![E-R Model](doc/books_er_model.png)
+![E-R Model](books_er_model.png)
 
 Complete each of the following requirements taking into consideration that is mandatory to complete from 1 to 7, it is optional from 8 to 10, and it is a challenge from 11 to 13.
 

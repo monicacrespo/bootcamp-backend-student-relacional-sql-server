@@ -10,11 +10,16 @@
     public class AuthorEntity
     {
         public int Id { get; set; }
+
         public string FirstName { get; set; } = null!;
+
         public string LastName { get; set; } = string.Empty;
+
+        public string FullName { get; private set; } = String.Empty;
+
         public DateTime? DateOfBirth { get; set; }
         
-        public string CountryCode { get; set; } = string.Empty;
+        public string? CountryCode { get; set; } = string.Empty;
 
         // Navigation properties
         public List<BookEntity> Books { get; set; } = new();
