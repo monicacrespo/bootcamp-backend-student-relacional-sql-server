@@ -8,17 +8,17 @@ namespace BookManager.Application.Validators
     {
         public BookValidator()
         {
-            RuleFor(a => a.Title.Trim())
+            RuleFor(a => a.Title)
                .NotEmpty()
-               .WithMessage("Title should not be empty")
+               .WithMessage("{PropertyName} should not be empty")
                .Length(2, 150)
-               .WithMessage("Title should have between {0} and {1} characters");
+               .WithMessage("{PropertyName} should have between {MinLength} and {MaxLength} characters");
 
-            RuleFor(a => a.Description.Trim())
+            RuleFor(a => a.Description)
                .NotEmpty()
-               .WithMessage("Description should not be empty")
+               .WithMessage("{PropertyName} should not be empty")
                .Length(2, 450)
-               .WithMessage("Description should have between {0} and {1} characters");          
-        }       
+               .WithMessage("{PropertyName} should have between {MinLength} and {MaxLength} characters");          
+        }
     }
 }

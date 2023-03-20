@@ -21,7 +21,7 @@
         
         public string? CountryCode { get; set; } = string.Empty;
 
-        // Navigation properties
+        // One-to-many relationship with book
         public List<BookEntity> Books { get; set; } = new();
     }
 }

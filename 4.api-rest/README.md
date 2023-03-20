@@ -124,5 +124,9 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
   ![Postman Create Author](doc/PostmanCreateAuthor.JPG)
 5. From Postman, send `2. Create Book With Valid Author` API request. The 200 OK HTTP response will contain the ID of the book created.
   ![Postman Create Book Valid Author](doc/Postman-CreateBook-ValidAuthor.JPG)
-6. From Postman, send `3. Create Book With Invalid Author` API request. 
+6. From Postman, send `2. Create Book With Invalid Author` API request. 
   ![Postman Create Book Invalid Author](doc/Postman-CreateBook-InvalidAuthor.JPG)
+7. From Postman, send `3. Update Book` API request. 
+  ![Postman Update Book](doc/Postman-UpdateBook.JPG)
+8. From Postman, send `4. Update Book` API request. 
+  ![Postman Get All Books And Author Fullname](doc/Postman-GetAllBooks.JPG)

@@ -4,6 +4,7 @@ namespace BookManager.Controllers
     using BookManager.Application.Models;
     using BookManager.Application.Validators;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
     using System.ComponentModel.DataAnnotations;
     using System.Net;
     using System.Net.Mime;
@@ -22,7 +23,8 @@ namespace BookManager.Controllers
         [HttpPost("authors")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BookManagerErrorResponse),StatusCodes.Status400BadRequest)]      
+        [ProducesResponseType(typeof(BookManagerErrorResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateAuthor([FromBody] Author author)
         {
             var validator = new AuthorValidator();
@@ -50,6 +52,8 @@ namespace BookManager.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BookManagerErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public async Task<IActionResult> CreateBook([FromBody] Book book)
         {
             var validator = new BookValidator();
@@ -75,27 +79,42 @@ namespace BookManager.Controllers
 
         [HttpPut("books/{id:int}")]
         [Consumes(MediaTypeNames.Application.Json)]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateBook(int id, [FromBody] Book book)
         {
+            if (await _bookManagerService.DoesExistBook(id) == -1)
+            {
+                return NotFound();
+            }
+
+            if (book.Title.IsNullOrEmpty() && book.Description.IsNullOrEmpty())
+            {
+                return BadRequest(); // nothing to update
+            }
+
             try
             {
                 var resultStatus = await _bookManagerService.UpdateBook(id, book.Title, book.Description);
 
-                if (resultStatus == -1)
-                {
-                    return NotFound();
-                }
-
-                if (resultStatus == -2)
-                {
-                    return BadRequest();
-                }
-
                 return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
+        [HttpGet("books")]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            try
+            {
+                var allBooks = await _bookManagerService.GetAllBooksIncludingAuthor();
+
+                return Ok(allBooks);
             }
             catch (Exception ex)
             {

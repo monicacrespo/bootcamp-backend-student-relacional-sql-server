@@ -5,7 +5,9 @@ namespace BookManager.Application
     using BookManager.Domain;
     using FluentValidation;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using System.Runtime.InteropServices;
+    using System.Text.Json;
     using System.Threading.Tasks;
 
     public class BookManagerService
@@ -50,24 +52,19 @@ namespace BookManager.Application
        
         public async Task<int> UpdateBook(int id, string? title, string? description)
         {
-            BookEntity? bookEntity = await GetBook(id);
+            BookEntity? bookEntity = _bookManagerDbContext.Books.ToList().Find(x => x.Id == id);
 
             if (bookEntity == null)
             {
-                return -1; // book not found
+                return -1; 
             }
 
-            if (title == null && description == null)
-            {
-                return -2; // nothing to update
-            }
-            
-            if (!string.IsNullOrWhiteSpace(title?.Trim()))
+            if (!string.IsNullOrWhiteSpace(title))
             { 
                 bookEntity.Title = title; 
             }
 
-            if (!string.IsNullOrWhiteSpace(description?.Trim()))
+            if (!string.IsNullOrWhiteSpace(description))
             {
                 bookEntity.Description = description;
             }
@@ -78,20 +75,33 @@ namespace BookManager.Application
             return id;
         }
 
-        public async Task<BookEntity?> GetBook(int bookId)
+        public async Task<string> GetAllBooksIncludingAuthor()
+        {            
+            var booksIncludingAuthor =
+                await _bookManagerDbContext
+                    .Books
+                    .OrderBy(b => b.Title)
+                    .Select(b => new
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        Description = b.Description,
+                        Author = b.Author.FullName                        
+                    })
+                    .ToListAsync();
+
+            // serialize a list of anonimous objects
+            var json = JsonSerializer.Serialize<object>(booksIncludingAuthor, new JsonSerializerOptions { WriteIndented = true, });
+            return json;
+        }
+
+        public async Task<int> DoesExistBook(int bookId)
         {
-            return await _bookManagerDbContext
+            BookEntity? bookEntity = await _bookManagerDbContext
                 .Books
                 .FindAsync(bookId);
-            //return (bookEntity == null)
-            //    ? null
-            //    : new Book
-            //    {
-            //        Title = bookEntity.Title,
-            //        Description = bookEntity.Description,
-            //        PublishedOn = bookEntity.PublishedOn,
-            //        AuthorId = bookEntity.AuthorId
-            //    };
+
+            return bookEntity == null ? -1 : 0;
         }
     }
 }

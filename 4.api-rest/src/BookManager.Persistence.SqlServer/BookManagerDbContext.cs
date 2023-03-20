@@ -74,10 +74,10 @@
 
             modelBuilder.Entity<BookEntity>()
                 .HasOne(m => m.Author)
-                     .WithMany("Books")
-                     .HasForeignKey("AuthorId")
-                     .OnDelete(DeleteBehavior.Restrict)
-                     .IsRequired();
+                .WithMany("Books")
+                .HasForeignKey("AuthorId")
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
 
             
         }

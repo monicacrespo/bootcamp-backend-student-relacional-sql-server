@@ -16,6 +16,7 @@
 
         public string Description { get; set; } = null!;
 
+        // One-to-many relation with author
         public AuthorEntity Author { get; set; } = null!;
 
         public int AuthorId { get; set; }
