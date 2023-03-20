@@ -1,5 +1,6 @@
 ﻿namespace BookManager
 {
+    using BookManager.Extensions;
     using BookManager.Application;
     using BookManager.Persistence.SqlServer;
     using Microsoft.EntityFrameworkCore;
@@ -34,15 +35,16 @@
                 {
                      options.UseSqlServer(booksConnectionString);
                 })
-                .AddScoped<IBookManagerDbContext, BookManagerDbContext>()            
+                .AddScoped<IBookManagerDbContext, BookManagerDbContext>()
+                .AddOpenApi()
                 .AddControllers();
         }
         
         // Middleware pipeline
         public void Configure(IApplicationBuilder app)
         {
-            app.UseRouting();                
-
+            app.UseRouting();
+            app.UseOpenApi();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -210,6 +210,38 @@
 			"response": []
 		},
 		{
+			"name": "4. Get All Books",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5236/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5236",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "0. Health",
 			"request": {
 				"method": "GET",

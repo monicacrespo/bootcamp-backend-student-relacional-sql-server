@@ -50,7 +50,8 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 | ------------------| ------------| --------| ---------------   | 
 | api/authors 			| POST	      | Create  | 200 OK (id of the new author)		  | 
 | api/books  			  | POST	      | Create	| 200 OK (id of the new book)	 	  | 
-| api/books/{id:int}	  | PUT	       | Update	| 200 OK (updated book)	 	  | 
+| api/books/{id:int}	  | PUT	       | Update	| 200 OK (updated book)	 	  |
+| api/books	  | GET	       | Read	| 200 OK (books including author)	 	  |  
 | api/health        | GET         | N/A		  | 200	Ok           |
 
 
@@ -130,3 +131,10 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
   ![Postman Update Book](doc/Postman-UpdateBook.JPG)
 8. From Postman, send `4. Update Book` API request. 
   ![Postman Get All Books And Author Fullname](doc/Postman-GetAllBooks.JPG)
+
+## How to test this API during development using Swagger
+
+1. From Visual Studio in Development Mode, run the ASP.NET Core Web API by Pressing F5 key or the green "play" button. Visual Studio should start up a browser automatically.
+
+![Swagger Endpoints](doc/SwaggerEndpoints.JPG)
+![Swagger Get All Books](doc/SwaggerGetAllBooks.JPG)
