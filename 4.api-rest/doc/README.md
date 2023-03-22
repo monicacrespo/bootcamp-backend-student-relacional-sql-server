@@ -30,14 +30,14 @@ Complete each of the following requirements taking into consideration that is ma
 
 8. Add Swagger/OpenAPI (i.e: nuget packet `Swashbuckle.AspNetCore`) to interact with the endpoints from the url `/swagger`. Push your changes to your git repository.
 9. Add a functional test for the following use case: 
-   - Given the creation of an author by http, 
-   - When reading from the database the author using its id generated,
-   - Then it returns the author that was created.
+   - Given an author 
+   - When creating it using the proper endpoint
+   - Then it returns the author id that was created.
    Push your changes to your git repository.
 10. Add a functional test for the following use case:  
-    - Given the creation of an author that has two books, 
-    - When quering all books using the proper endpoint,
-    - Then it should return the author and the two books.   
+    - Given the creation of an author that has two books 
+    - When quering all books using the proper endpoint
+    - Then it should return the author and the two books.
     Push your changes to your git repository.
 
 12. Add a filter as a query parameter in `GET api/books?title=foo` to query books with specific title. Push your changes to your git repository.

@@ -10,7 +10,7 @@ namespace BookManager.Application
     using System.Text.Json;
     using System.Threading.Tasks;
 
-    public class BookManagerService
+    public class BookManagerService : IBookManagerService
     {
         private readonly IBookManagerDbContext _bookManagerDbContext;
 

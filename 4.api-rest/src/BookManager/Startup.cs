@@ -28,9 +28,7 @@
             }
 
             services
-                .AddTransient<INotificationService>(sp =>
-                    new NotificationService(new NotificationServiceConfiguration { Host = websocketHostUrl }))
-                .AddTransient<BookManagerService>()
+                .AddTransient<IBookManagerService,BookManagerService>()
                 .AddDbContext<BookManagerDbContext>(options =>
                 {
                      options.UseSqlServer(booksConnectionString);

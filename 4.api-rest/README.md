@@ -21,10 +21,11 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 │   		├── AuthorValidator.cs
 │   		├── BookValidator.cs
 │   	├── BookManagerService.cs
+│   	├── IBookManagerService.cs
 │   	├── IBookManagerDbContext.cs
 │   ├── BookManager.Domain
 │   	├── AuthorEntity.cs
-│   	├── BookEntity.cs
+│   	├── BookEntity.css
 │   ├── BookManager.Persistence.SqlServer
 │   	├── Migrations
 │   		├── 20230312173037_InitialCreate.cs
@@ -40,6 +41,7 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 │   	├──TestSupport
 │   		├── IntegrationTest.cs
 │   	├──appsettings.Test.json
+│   	├──BookManagerControllerTests.cs
 │   	├──HealthTests.cs
 │   ├──Book Manager Rest Api Lemoncode.postman_collection.json
 ```

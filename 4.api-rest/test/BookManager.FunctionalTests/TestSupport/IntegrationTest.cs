@@ -40,15 +40,6 @@ namespace BookManager.FunctionalTests.TestSupport {
 
         protected virtual void ConfigureTestServices(IServiceCollection services)
         {
-            // Replace INotificationService with mock
-            RemoveDependencyInjectionRegisteredService<INotificationService>(services);
-
-            var mockNotification = new Mock<INotificationService>();
-            mockNotification
-                .Setup(m => m.SendNotification(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(Task.CompletedTask);
-            services.AddSingleton<INotificationService>(mockNotification.Object);
-
             // Replace EF Core's DbContext to use
             RemoveDependencyInjectionRegisteredService<DbContextOptions<BookManagerDbContext>>(services);
 
