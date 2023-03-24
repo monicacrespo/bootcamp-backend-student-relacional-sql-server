@@ -9,7 +9,7 @@ namespace BookManager.Application
 
         Task<int> UpdateBook(int id, string? title, string? description);
 
-        Task<string> GetAllBooksIncludingAuthor();
+        Task<string> GetAllBooksIncludingAuthor(string title);
 
         Task<int> DoesExistBook(int bookId);
     }

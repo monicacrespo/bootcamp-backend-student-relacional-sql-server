@@ -15,11 +15,17 @@ Create an API REST to manage books with SQL Server persistence, using Entity Fra
 Complete each of the following requirements taking into consideration that is mandatory to complete from 1 to 7, it is optional from 8 to 10, and it is a challenge from 11 to 13.
 
 1. Run `create-structure.bat` y verify that a solution with three empty projects are created (BookManager, BookManager.Application and BookManager.Domain). Open the solution and delete the https and IIS support.
+
 2. Do a `git add .`, `git commit -m "solución inicial"` and `git push` to your remote git repository (GitLab or GitHub) and verify that your changes are pushed correctly.
+
 3. Create a SQL Server database migration using *code first* and the EF CLI. Push your changes to your git repository.
+
 4. Create an endpoint to add Authors (i.e: `POST api/authors`) that accepts payload in json format to create new authors with name, surname, datebirth and nationality as country code of two characters *ISO 3166-1 alpha-2 code*. Push your changes to your git repository.
+
 5. Create an endpoint to add Books (i.e: `POST api/books`) that accepts payload in json format to create new books with title, publish date, description and author's id. Push your changes to your git repository.
+
 6. Create an endpoint to update the title or description of a book (i.e: `PUT api/books/{bookId}`) given its id. Push your changes to your git repository.
+
 7. Create an endpoint to query all books (i.e: `GET api/books`) and return a collection of books with the following information. 
     - Id: the unique identifier of the book
     - Title: the title of the book
@@ -29,22 +35,24 @@ Complete each of the following requirements taking into consideration that is ma
     Push your changes to your git repository.
 
 8. Add Swagger/OpenAPI (i.e: nuget packet `Swashbuckle.AspNetCore`) to interact with the endpoints from the url `/swagger`. Push your changes to your git repository.
+
 9. Add a functional test for the following use case: 
    - Given an author 
    - When creating it using the proper endpoint
    - Then it returns the author id that was created.
    Push your changes to your git repository.
+
 10. Add a functional test for the following use case:  
     - Given the creation of an author that has two books 
     - When quering all books using the proper endpoint
     - Then it should return the author and the two books.
     Push your changes to your git repository.
 
-12. Add a filter as a query parameter in `GET api/books?title=foo` to query books with specific title. Push your changes to your git repository.
+11. Add a filter as a query parameter in `GET api/books?title=foo` to query books with specific title. Push your changes to your git repository.
 
-13. Add another filter as a query parameter in `GET api/books?title=foo&author=bar` to query books with specific title, and also books whose author's name or surname contains the value passed in the filter. Push your changes to your git repository.
+12. Add another filter as a query parameter in `GET api/books?title=foo&author=bar` to query books with specific title, and also books whose author's name or surname contains the value passed in the filter. Push your changes to your git repository.
 
-14. Add basic authentication with a filter or middleware, with configurable credentials in `appsettings.json` to secure all endpoints and allows only the http requests that contain the `Authorization: Basic <base_64_credentials>` header. Update Swagger and tests accordingly. Push your changes to your git repository.
+13. Add basic authentication with a filter or middleware, with configurable credentials in `appsettings.json` to secure all endpoints and allows only the http requests that contain the `Authorization: Basic <base_64_credentials>` header. Update Swagger and tests accordingly. Push your changes to your git repository.
 
 It will be valued:
 - clean code and separation of responsibilities

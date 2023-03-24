@@ -5,10 +5,8 @@ namespace BookManager.Controllers
     using BookManager.Application.Validators;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
-    using System.ComponentModel.DataAnnotations;
     using System.Net;
     using System.Net.Mime;
-    using static System.Runtime.InteropServices.JavaScript.JSType;
 
     [Route("api")]
     public class BookManagerController
@@ -108,19 +106,20 @@ namespace BookManager.Controllers
         }
 
         [HttpGet("books")]
-        public async Task<IActionResult> GetAllBooks()
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllBooks(string title)
         {
             try
             {
-                var allBooks = await _bookManagerService.GetAllBooksIncludingAuthor();
+                var allBooks = await _bookManagerService.GetAllBooksIncludingAuthor(title);
 
                 return Ok(allBooks);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-            
+            }            
         }
     }
 }

@@ -1,12 +1,10 @@
 namespace BookManager.Application
 {
     using BookManager.Application.Models;
-    using BookManager.Application.Validators;
     using BookManager.Domain;
     using FluentValidation;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using System.Runtime.InteropServices;
+    using System.Linq.Expressions;
     using System.Text.Json;
     using System.Threading.Tasks;
 
@@ -75,20 +73,29 @@ namespace BookManager.Application
             return id;
         }
 
-        public async Task<string> GetAllBooksIncludingAuthor()
-        {            
-            var booksIncludingAuthor =
-                await _bookManagerDbContext
-                    .Books
+        public async Task<string> GetAllBooksIncludingAuthor(string title)
+        {
+            //Create the builder          
+            Expression<Func<BookEntity, bool>> predicate = (x) => true;
+
+            // if the title is null or empty will return all books
+            if (title != null)
+            {
+                predicate = (x => x.Title == title);
+            }
+
+            var booksIncludingAuthor = await _bookManagerDbContext.Books
                     .OrderBy(b => b.Title)
+                    .Where(predicate)
                     .Select(b => new
                     {
                         Id = b.Id,
                         Title = b.Title,
                         Description = b.Description,
-                        Author = b.Author.FullName                        
+                        Author = b.Author.FullName
                     })
                     .ToListAsync();
+                   
 
             // serialize a list of anonimous objects
             var json = JsonSerializer.Serialize<object>(booksIncludingAuthor, new JsonSerializerOptions { WriteIndented = true, });
