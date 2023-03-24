@@ -140,3 +140,5 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
 
 ![Swagger Endpoints](doc/SwaggerEndpoints.JPG)
 ![Swagger Get All Books](doc/SwaggerGetAllBooks.JPG)
+![Swagger Get All Books By Title](doc/SwaggerGetAllBooksByTitle.JPG)
+![Swagger Get All Books By Title And Autor](doc/SwaggerGetAllBooksByTitleAndAuthor.JPG)

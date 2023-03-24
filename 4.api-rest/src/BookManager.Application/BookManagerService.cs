@@ -4,6 +4,8 @@ namespace BookManager.Application
     using BookManager.Domain;
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
     using System.Linq.Expressions;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -73,33 +75,38 @@ namespace BookManager.Application
             return id;
         }
 
-        public async Task<string> GetAllBooksIncludingAuthor(string title)
+        public async Task<string> GetAllBooksIncludingAuthor(string title, string author)
         {
-            //Create the builder          
             Expression<Func<BookEntity, bool>> predicate = (x) => true;
 
             // if the title is null or empty will return all books
-            if (title != null)
+            if (!string.IsNullOrWhiteSpace(title))
             {
-                predicate = (x => x.Title == title);
+                predicate = (x => x.Title.ToLower() == title.ToLower()); // query books with specific title
             }
 
-            var booksIncludingAuthor = await _bookManagerDbContext.Books
-                    .OrderBy(b => b.Title)
-                    .Where(predicate)
-                    .Select(b => new
-                    {
-                        Id = b.Id,
-                        Title = b.Title,
-                        Description = b.Description,
-                        Author = b.Author.FullName
-                    })
-                    .ToListAsync();
-                   
+            if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(author))
+            // query books with specific title AND whose FullName (FirstName + ' ' + LastName) contains the value passed in the filter
+            {
+                predicate = (x => x.Title.ToLower() == title.ToLower() && x.Author.FullName.ToLower().Contains(author.ToLower()));
+            }
+
+            var booksIncludingAuthor = await _bookManagerDbContext.Books   
+                .OrderBy(b => b.Title)
+                .Where(predicate)
+                .Select(b => new
+                     {
+                         Id = b.Id,
+                         Title = b.Title,
+                         Description = b.Description,
+                         Author = b.Author.FullName
+                     })
+                .ToListAsync();           
 
             // serialize a list of anonimous objects
-            var json = JsonSerializer.Serialize<object>(booksIncludingAuthor, new JsonSerializerOptions { WriteIndented = true, });
-            return json;
+           var json = JsonSerializer.Serialize<object>(booksIncludingAuthor, new JsonSerializerOptions { WriteIndented = true, });
+            
+           return json;
         }
 
         public async Task<int> DoesExistBook(int bookId)

@@ -108,11 +108,11 @@ namespace BookManager.Controllers
         [HttpGet("books")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllBooks(string title)
+        public async Task<IActionResult> GetAllBooks(string title, string author)
         {
             try
             {
-                var allBooks = await _bookManagerService.GetAllBooksIncludingAuthor(title);
+                var allBooks = await _bookManagerService.GetAllBooksIncludingAuthor(title, author);
 
                 return Ok(allBooks);
             }
