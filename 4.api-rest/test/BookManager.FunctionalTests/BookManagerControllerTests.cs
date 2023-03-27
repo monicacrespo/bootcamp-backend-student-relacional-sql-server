@@ -1,6 +1,8 @@
 namespace BookManager.FunctionalTests {
 
     using System.Net;
+    using System.Net.Http.Headers;
+    using System.Net.Http;
     using System.Net.Http.Json;
     using System.Text.Json;
     using BookManager.Application;
@@ -10,11 +12,33 @@ namespace BookManager.FunctionalTests {
     using FluentAssertions;
     using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
     using Moq;
+    using Microsoft.Extensions.Primitives;
+    using Microsoft.Net.Http.Headers;
 
     public class BookManagerControllerTests : IntegrationTest
     {
         [Fact]
-        public async Task Given_Author_When_CreateAuthor_Is_Called_Then_It_Returns_200_Ok()
+        public async Task Given_Author_When_CreateAuthor_Then_It_Returns_200_Ok()
+        {
+            // Given
+            var newAuthor = new Author
+            {
+                FirstName = "FirstNameTest",
+                LastName = "LastNameTest",
+                DateOfBirth = DateTime.Now,
+                CountryCode = "ES"
+            };           
+           
+            // When
+            var result = await HttpClient.PostAsJsonAsync($"api/authors", newAuthor);
+
+            // Then
+            var payload = await result.Content.ReadAsStringAsync();
+            payload.Should().Contain("1");        
+            result.StatusCode.Should().Be(HttpStatusCode.OK);            
+        }
+        [Fact]
+        public async Task Given_Author_When_CreateAuthor_With_Invalid_Credentials_Then_It_Returns_401()
         {
             // Given
             var newAuthor = new Author
@@ -24,14 +48,14 @@ namespace BookManager.FunctionalTests {
                 DateOfBirth = DateTime.Now,
                 CountryCode = "ES"
             };
+           
+            HttpClient.DefaultRequestHeaders.Remove("Authorization");
 
             // When
             var result = await HttpClient.PostAsJsonAsync($"api/authors", newAuthor);
 
-            // Then
-            var payload = await result.Content.ReadAsStringAsync();
-            payload.Should().Contain("1");        
-            result.StatusCode.Should().Be(HttpStatusCode.OK);            
+            // Then          
+            result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
         [Fact]

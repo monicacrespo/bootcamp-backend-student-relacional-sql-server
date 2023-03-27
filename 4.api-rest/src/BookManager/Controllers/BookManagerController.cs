@@ -3,6 +3,7 @@ namespace BookManager.Controllers
     using BookManager.Application;
     using BookManager.Application.Models;
     using BookManager.Application.Validators;
+    using BookManager.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
     using System.Net;
@@ -18,6 +19,7 @@ namespace BookManager.Controllers
             _bookManagerService = bookManagerService;
         }
 
+        [BasicAuth]
         [HttpPost("authors")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -52,6 +54,7 @@ namespace BookManager.Controllers
         [ProducesResponseType(typeof(BookManagerErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
+        [BasicAuth]
         public async Task<IActionResult> CreateBook([FromBody] Book book)
         {
             var validator = new BookValidator();
@@ -75,6 +78,7 @@ namespace BookManager.Controllers
             }            
         }
 
+        [BasicAuth]
         [HttpPut("books/{id:int}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -105,6 +109,7 @@ namespace BookManager.Controllers
             }
         }
 
+        [BasicAuth]
         [HttpGet("books")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]

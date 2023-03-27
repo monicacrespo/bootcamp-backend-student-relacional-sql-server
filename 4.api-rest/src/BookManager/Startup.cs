@@ -18,14 +18,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             var booksConnectionString =
-                _configuration.GetValue<string>("ConnectionStrings:BooksDatabase");
-
-            var websocketHostUrl = _configuration.GetValue<string>("WebsocketHostUrl");
-
-            if (websocketHostUrl is null)
-            {
-                throw new ApplicationException();
-            }
+                _configuration.GetValue<string>("ConnectionStrings:BooksDatabase");           
 
             services
                 .AddTransient<IBookManagerService,BookManagerService>()
@@ -43,6 +36,10 @@
         {
             app.UseRouting();
             app.UseOpenApi();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -78,8 +78,6 @@
                 .HasForeignKey("AuthorId")
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
-
-            
         }
     }
 }

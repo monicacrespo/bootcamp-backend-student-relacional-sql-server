@@ -1,8 +1,10 @@
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using BookManager;
 using BookManager.Application;
 using BookManager.Persistence.SqlServer;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,8 @@ namespace BookManager.FunctionalTests.TestSupport {
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly string _uniqueDatabaseName;
+        private readonly string? storedUsername;
+        private readonly string? storedPassword;
         protected HttpClient HttpClient { get; }
         protected IntegrationTest()
         {
@@ -36,6 +40,17 @@ namespace BookManager.FunctionalTests.TestSupport {
             // Apply Migrations
             using var dbContext = _serviceProvider.CreateScope().ServiceProvider.GetRequiredService<BookManagerDbContext>();
             dbContext.Database.Migrate();
+
+            var configuration = _serviceProvider.GetRequiredService<IConfiguration>();
+            storedUsername = configuration.GetValue<string>("BasicAuthentication:Username");
+            storedPassword = configuration.GetValue<string>("BasicAuthentication:Password");
+
+            HttpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue(
+                    "Basic",
+                    Convert.ToBase64String(
+                        System.Text.ASCIIEncoding.ASCII.GetBytes(
+                            string.Format("{0}:{1}", storedUsername, storedPassword))));
         }
 
         protected virtual void ConfigureTestServices(IServiceCollection services)
@@ -60,7 +75,7 @@ namespace BookManager.FunctionalTests.TestSupport {
 
                     var uniqueDbTestConnectionString = uniqueDbTestConnectionStringBuilder.ToString().TrimEnd(';');
                     options.UseSqlServer(uniqueDbTestConnectionString);
-                });
+                });            
         }
 
         private void RemoveDependencyInjectionRegisteredService<TService>(IServiceCollection services)

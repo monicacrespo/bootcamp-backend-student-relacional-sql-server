@@ -9,6 +9,12 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 │   	├── Controllers
 │   		├── BookManagerController.cs
 │   		├── HealthController.cs
+│   	├── Extensions
+│   		├── ApplicationBuilderExtensions.cs
+│   		├── ServiceCollectionExtensions.cs
+│   	├── Filters
+│   		├── BasicAuthAttribute.cs
+│   		├── BasicAuthFilter.cs
 │   	├── appsettings.json
 │   	├── Program.cs
 │   	├── Startup.cs
@@ -53,7 +59,7 @@ API REST lab with SQL Server database persistence. Follow the instructions store
 | api/authors 			| POST	      | Create  | 200 OK (id of the new author)		  | 
 | api/books  			  | POST	      | Create	| 200 OK (id of the new book)	 	  | 
 | api/books/{id:int}	  | PUT	       | Update	| 200 OK (updated book)	 	  |
-| api/books	  | GET	       | Read	| 200 OK (books including author)	 	  |  
+| api/books?title=foo&author=bar  | GET	       | Read	| 200 OK (books including author)	 	  |  
 | api/health        | GET         | N/A		  | 200	Ok           |
 
 
@@ -131,8 +137,11 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
   ![Postman Create Book Invalid Author](doc/Postman-CreateBook-InvalidAuthor.JPG)
 7. From Postman, send `3. Update Book` API request. 
   ![Postman Update Book](doc/Postman-UpdateBook.JPG)
-8. From Postman, send `4. Update Book` API request. 
+8. From Postman, send `4. Get All Books` API request. 
   ![Postman Get All Books And Author Fullname](doc/Postman-GetAllBooks.JPG)
+
+9. From Postman, set `Authorization`, Type `Basic Auth` header. 
+  ![Postman Basic Auth](doc/Postman-GetAllBooks-BasicAuth.JPG)
 
 ## How to test this API during development using Swagger
 
@@ -142,3 +151,4 @@ Entity Framework Core (EF Core) is shipped as NuGet packages. The packages neede
 ![Swagger Get All Books](doc/SwaggerGetAllBooks.JPG)
 ![Swagger Get All Books By Title](doc/SwaggerGetAllBooksByTitle.JPG)
 ![Swagger Get All Books By Title And Autor](doc/SwaggerGetAllBooksByTitleAndAuthor.JPG)
+![Swagger Basic Auth](doc/SwaggerBasicAuth.JPG)

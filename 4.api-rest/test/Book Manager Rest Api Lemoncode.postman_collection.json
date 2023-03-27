@@ -8,11 +8,26 @@
 		{
 			"name": "1. Create Author",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Almudena\",\r\n    \"lastName\": \"Grandes\",\r\n    \"DateOfBirth\": \"1960-05-07T00:00:00.000Z\",\r\n    \"countryCode\": \"ES\"  \r\n}",
+					"raw": "{\r\n    \"firstName\": \"Juan Jose\",\r\n    \"lastName\": \"Millas\",\r\n    \"DateOfBirth\": \"1940-05-07T00:00:00.000Z\",\r\n    \"countryCode\": \"ES\"  \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -37,6 +52,21 @@
 		{
 			"name": "1. Create Another Author",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -66,6 +96,21 @@
 		{
 			"name": "1. Create Author Invalid Data",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -95,6 +140,21 @@
 		{
 			"name": "2. Create Book With Valid Author",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -124,6 +184,21 @@
 		{
 			"name": "2. Create Book With Invalid Book Data",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -153,6 +228,21 @@
 		{
 			"name": "2. Create Book With Invalid Author",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -182,6 +272,21 @@
 		{
 			"name": "3.Update Book",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -215,6 +320,21 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "blueberry",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -227,7 +347,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5236/api/books",
+					"raw": "http://localhost:5236/api/books?title=deadline",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -236,6 +356,12 @@
 					"path": [
 						"api",
 						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "deadline"
+						}
 					]
 				}
 			},
