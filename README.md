@@ -1,5 +1,5 @@
 # Introduction
-This repository presents the solutions to the following three labs provided by the Bootcamp Backend Lemoncode for the Relational Module.
+This repository presents the solutions to the following labs provided by the Bootcamp Backend Lemoncode for the Relational Module.
 * Module.1 
     * 1.sqlserver (must)
         * SQL Queries in SQL Server
@@ -9,6 +9,6 @@ This repository presents the solutions to the following three labs provided by t
         * Create the model done in step 2 in a database project in Visual Studio. 
 	    * Create publish profiles for different environments (dev, staging, prod).
 * Module.2 
-    * 4.api-rest (must)
+    * api-rest (must). You can find the solution [here](https://github.com/monicacrespo/bootcamp-backend-student-relational-rest-api)
 * Module.3
-    * 5.azure (must)
+    * azure (must). You can find the solution [here](https://github.com/monicacrespo/bootcamp-backend-student-azure)
